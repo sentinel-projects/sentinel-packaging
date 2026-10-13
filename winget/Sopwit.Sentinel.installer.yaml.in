@@ -1,0 +1,22 @@
+{
+  "PackageIdentifier": "Sopwit.Sentinel",
+  "PackageVersion": "@APP_VERSION@",
+  "Installers": [
+    {
+      "Architecture": "x64",
+      "InstallerType": "nullsoft",
+      "InstallerUrl": "@EXE_URL@",
+      "InstallerSha256": "@EXE_SHA256@",
+      "Scope": "user"
+    },
+    {
+      "Architecture": "x64",
+      "InstallerType": "wix",
+      "InstallerUrl": "@MSI_URL@",
+      "InstallerSha256": "@MSI_SHA256@",
+      "Scope": "machine"
+    }
+  ],
+  "ManifestType": "installer",
+  "ManifestVersion": "1.12.0"
+}

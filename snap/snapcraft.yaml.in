@@ -1,0 +1,42 @@
+{
+  "name": "sentinel-desktop",
+  "base": "core24",
+  "version": "@APP_VERSION@",
+  "summary": "Local-first AI desktop assistant",
+  "description": "Cross-platform C++20/Qt 6 desktop, daemon and CLI. Prerelease packaging; distribution clearance is not implied.",
+  "grade": "devel",
+  "confinement": "strict",
+  "license": "GPL-3.0-or-later",
+  "apps": {
+    "sentinel-desktop": {
+      "command": "usr/bin/sentinel-desktop",
+      "desktop": "usr/share/applications/dev.sentinel.Sentinel.desktop",
+      "extensions": [
+        "kde-neon-6"
+      ],
+      "plugs": [
+        "home"
+      ]
+    }
+  },
+  "parts": {
+    "sentinel": {
+      "plugin": "cmake",
+      "source": "@SOURCE_URL@",
+      "source-type": "tar",
+      "source-checksum": "sha256/@SOURCE_SHA256@",
+      "cmake-parameters": [
+        "-DCMAKE_INSTALL_PREFIX=/usr",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DSENTINEL_APP_VERSION=@APP_VERSION@",
+        "-DSENTINEL_BUILD_TESTS=OFF",
+        "-DSENTINEL_USE_CCACHE=OFF"
+      ],
+      "build-packages": [
+        "cmake",
+        "ninja-build",
+        "g++"
+      ]
+    }
+  }
+}

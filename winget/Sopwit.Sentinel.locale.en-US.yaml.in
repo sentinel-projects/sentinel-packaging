@@ -1,0 +1,17 @@
+{
+  "PackageIdentifier": "Sopwit.Sentinel",
+  "PackageVersion": "@APP_VERSION@",
+  "PackageLocale": "en-US",
+  "Publisher": "Sopwit",
+  "PublisherUrl": "https://github.com/sentinel-projects/sentinel",
+  "PublisherSupportUrl": "https://github.com/sentinel-projects/sentinel/issues",
+  "Author": "Sopwit / Sentinel Maintainers",
+  "PackageName": "Sentinel",
+  "License": "GPL-3.0-or-later",
+  "LicenseUrl": "https://github.com/sentinel-projects/sentinel/blob/efc26e27d6a96768ac07eb7c93523b51b4535031/LICENSE",
+  "Copyright": "© 2026 Sopwit. All rights reserved.",
+  "ShortDescription": "Local-first AI desktop assistant",
+  "Moniker": "sentinel",
+  "ManifestType": "defaultLocale",
+  "ManifestVersion": "1.12.0"
+}

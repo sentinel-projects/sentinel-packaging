@@ -1,0 +1,82 @@
+# Derived from Sentinel's Fedora/RPM recipes; see ATTRIBUTION.md.
+Name: sentinel-desktop
+Version: @NUMERIC_VERSION@
+Release: @RPM_RELEASE@%{?dist}
+Summary: Local-first AI desktop assistant
+License: GPL-3.0-or-later
+URL: https://github.com/sentinel-projects/sentinel
+Source0: @SOURCE_URL@#/@SOURCE_FILENAME@
+
+BuildRequires: cmake >= 3.27
+BuildRequires: gcc-c++
+BuildRequires: ninja-build
+BuildRequires: cmake-rpm-macros
+BuildRequires: cmake(Qt6Core) >= 6.5
+BuildRequires: cmake(Qt6Gui) >= 6.5
+BuildRequires: cmake(Qt6Quick) >= 6.5
+BuildRequires: cmake(Qt6Qml) >= 6.5
+BuildRequires: cmake(Qt6Sql) >= 6.5
+BuildRequires: cmake(Qt6Test) >= 6.5
+BuildRequires: cmake(Qt6Network) >= 6.5
+BuildRequires: cmake(Qt6Widgets) >= 6.5
+BuildRequires: cmake(Qt6LinguistTools) >= 6.5
+BuildRequires: cmake(Qt6Multimedia) >= 6.5
+BuildRequires: cmake(Qt6Concurrent) >= 6.5
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+BuildRequires: qt6-qtbase-sqlite
+Requires: qt6-qtbase-sqlite
+Requires: hicolor-icon-theme
+Recommends: libnotify
+Recommends: xdg-utils
+Recommends: libsecret
+Recommends: avahi-tools
+
+%description
+Sentinel is a cross-platform local-first C++/Qt desktop assistant.
+This prerelease package includes desktop, daemon and legacy C++ CLI.
+
+%prep
+echo '@SOURCE_SHA256@  %{SOURCE0}' | sha256sum --check --status
+%autosetup -n @ARCHIVE_ROOT@
+
+%build
+%cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DSENTINEL_APP_VERSION=@APP_VERSION@ -DSENTINEL_USE_CCACHE=OFF -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name}
+%cmake_build
+
+%install
+%cmake_install
+
+%check
+export QT_QPA_PLATFORM=offscreen
+%ctest
+desktop-file-validate %{buildroot}%{_datadir}/applications/dev.sentinel.Sentinel.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/dev.sentinel.Sentinel.metainfo.xml
+
+%files
+%license LICENSE
+%{_bindir}/sentinel-desktop
+%{_bindir}/sentinel-daemon
+%{_bindir}/sentinel-cli
+%{_bindir}/sentinel-plugin-host
+%{_datadir}/applications/dev.sentinel.Sentinel.desktop
+%{_datadir}/icons/hicolor/*/apps/dev.sentinel.Sentinel.*
+%{_datadir}/metainfo/dev.sentinel.Sentinel.metainfo.xml
+%{_datadir}/dbus-1/services/dev.sentinel.Sentinel.service
+%{_prefix}/lib/systemd/user/sentinel-desktop.service
+%{_datadir}/sentinel/
+%doc %{_docdir}/%{name}/
+%license %{_datadir}/licenses/sentinel/
+%config(noreplace) %{_sysconfdir}/sentinel/config.json.template
+
+%changelog
+* Tue Sep 22 2026 Sentinel Maintainers <sopwith.osdev@gmail.com> - 1.0.0-1
+- Ship sentinel-daemon and sentinel-cli alongside the desktop app
+- Run tests headless via QT_QPA_PLATFORM=offscreen
+- Recommend optional runtime helpers (libnotify, xdg-utils, libsecret, avahi-tools)
+- Initial enterprise RPM package release for Fedora KDE Plasma
+- FHS 3.0, XDG Base Directory, D-Bus session activation and systemd user service integration
+
+* Thu Aug 06 2026 Sentinel Maintainers <sopwith.osdev@gmail.com> - 1.0.0-1
+- Ship sentinel-daemon and sentinel-cli alongside the desktop app
+- systemd user unit now launches the headless sentinel-daemon binary

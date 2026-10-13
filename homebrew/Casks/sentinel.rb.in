@@ -1,0 +1,33 @@
+cask "sentinel" do
+  version "@APP_VERSION@"
+  sha256 "@DMG_SHA256@"
+
+  url "@DMG_URL@"
+  name "Sentinel"
+  desc "Local-first AI desktop assistant"
+  homepage "https://github.com/sentinel-projects/sentinel"
+
+  livecheck do
+    url "https://github.com/sentinel-projects/sentinel/releases.atom"
+    strategy :github_latest
+  end
+
+  auto_updates false
+  depends_on macos: ">= :ventura"
+
+  app "Sentinel.app"
+
+  uninstall quit:      "dev.sentinel.Sentinel",
+            script:    {
+              executable: "#{appdir}/Sentinel.app/Contents/Resources/uninstall.sh",
+              must_succeed: false,
+            }
+
+  zap trash: [
+    "~/Library/Application Support/Sopwit/Sentinel",
+    "~/Library/Application Support/Sopwit/Sentinel Desktop",
+    "~/Library/Caches/dev.sentinel.Sentinel",
+    "~/Library/Logs/Sentinel",
+    "~/Library/Preferences/dev.sentinel.Sentinel.plist",
+  ]
+end

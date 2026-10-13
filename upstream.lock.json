@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "upstream_repository": "https://github.com/sentinel-projects/sentinel",
+  "commit": "efc26e27d6a96768ac07eb7c93523b51b4535031",
+  "application_version": "1.0.0-rc.8",
+  "numeric_version": "1.0.0",
+  "app_id": "dev.sentinel.Sentinel",
+  "source": {
+    "url": "https://codeload.github.com/sentinel-projects/sentinel/tar.gz/efc26e27d6a96768ac07eb7c93523b51b4535031",
+    "sha256": "b173e64c6907212be25b75663e2c25135fe2d1685236488096e6177cdb48c6b7",
+    "filename": "sentinel-efc26e27d6a96768ac07eb7c93523b51b4535031.tar.gz",
+    "archive_root": "sentinel-efc26e27d6a96768ac07eb7c93523b51b4535031",
+    "bytes": 61299390
+  },
+  "binary_artifacts": {},
+  "binary_disposition": "No published artifacts exist. Cask/Winget rendering must reject missing artifact URL/SHA; never use no_check or placeholder checksums.",
+  "flatpak_runtime": "6.11",
+  "snap_base": "core24",
+  "snap_extension": "kde-neon-6",
+  "package_id": "Sopwit.Sentinel",
+  "macos_minimum": "13.0",
+  "macos_bundle": "Sentinel.app",
+  "qt_minimum": "6.5",
+  "cmake_minimum": "3.27"
+}

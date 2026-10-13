@@ -1,0 +1,94 @@
+{
+  "upstream_commit": "efc26e27d6a96768ac07eb7c93523b51b4535031",
+  "recipes": [
+    {
+      "source": "LICENSE",
+      "staged": "LICENSE",
+      "source_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "source": "packaging/linux/fedora-kde/sentinel-desktop.spec",
+      "staged": "rpm/sentinel-desktop.spec.in",
+      "source_sha256": "a828d3966ea1a6527d4c4f72d0136e1615fb6713ce803468ee443ff6189fa315"
+    },
+    {
+      "source": "packaging/linux/rpm/sentinel-desktop.spec",
+      "staged": "rpm/sentinel-desktop.spec.in",
+      "source_sha256": "3bb038d96a34039ad03abadc531a4ebe8f3d2ff5273d127d213e3f23f7b509e0",
+      "disposition": "Build/install recipe equivalent; distinct historical changelog retained in consolidated spec."
+    },
+    {
+      "source": "packaging/linux/fedora-kde/build_copr.sh",
+      "staged": "tools/build_srpm.sh",
+      "source_sha256": "8338ade3e94cc560ab27f932cd55a72e2128cfdce2ca989f2c225146ee6d8574"
+    },
+    {
+      "source": "packaging/linux/flatpak/dev.sentinel.Sentinel.json",
+      "staged": "flatpak/dev.sentinel.Sentinel.json.in",
+      "source_sha256": "4e4e3e3e4b02238c522adda62ee109f585f41060e238ccfdad37adf90990fdd7"
+    },
+    {
+      "source": "packaging/linux/flatpak/build_flatpak.sh",
+      "staged": "tools/build_flatpak.sh",
+      "source_sha256": "a3e5cb6600c7927ac01356592ca9cbda59a4156479c3e0aa5c26fd6fe5b52bbb"
+    },
+    {
+      "source": "packaging/linux/snap/snapcraft.yaml",
+      "staged": "snap/snapcraft.yaml.in",
+      "source_sha256": "c6b984af2e1705e58737b6e843cb06022a515dbec7c3913279556528f04cf4aa"
+    },
+    {
+      "source": "packaging/macos/Cask/sentinel.rb",
+      "staged": "homebrew/Casks/sentinel.rb.in",
+      "source_sha256": "0555bae7f907c4647f4ea2f13f8c24699ac0730f751498b31769c0560004ff56"
+    },
+    {
+      "source": "packaging/windows/winget/Sopwit.Sentinel.yaml",
+      "staged": "winget/Sopwit.Sentinel.installer.yaml.in",
+      "source_sha256": "d41ade06bf6c6002e1a39cc89d6b9cda47410fe90d9d98c25321164291bc9a85"
+    }
+  ],
+  "duplicate_resolution": {
+    "RPM": "rpm/sentinel-desktop.spec.in owns the external recipe; build/install portions coincide, differing changelog entries are preserved. CPack stays in main.",
+    "Flatpak": "dev.sentinel.Sentinel JSON is the sole canonical manifest. Duplicate YAML and org.sentinel.Sentinel variant are not extracted.",
+    "Fedora_AppStream": "duplicate fedora-kde AppStream is not extracted; canonical upstream installed metadata is used."
+  },
+  "remaining_in_main": [
+    "core/",
+    "apps/",
+    "ui/",
+    "integrations/",
+    "cmake/",
+    "tests/",
+    "plugins/",
+    "resources/",
+    "assets/",
+    ".github/workflows/",
+    "packaging/linux/dev.sentinel.Sentinel.desktop",
+    "packaging/linux/dev.sentinel.Sentinel.metainfo.xml",
+    "packaging/linux/dbus/",
+    "packaging/linux/systemd/",
+    "packaging/linux/etc/",
+    "packaging/macos/bundle/",
+    "packaging/macos/uninstall.sh",
+    "packaging/macos/run_macos_tests.sh",
+    "packaging/windows/installer/",
+    "packaging/windows/sentinel-desktop.rc.in",
+    "packaging/windows/sentinel-desktop.exe.manifest",
+    "packaging/windows/Sign-Installer.ps1",
+    "packaging/windows/Install-Silent.ps1",
+    "packaging/windows/Uninstall-Silent.ps1",
+    "packaging/release-qa.sh",
+    "cli/",
+    "CMakeLists.txt",
+    "CMakePresets.json",
+    "packaging/macos/appcast.xml",
+    "packaging/README.md"
+  ],
+  "no_main_files_removed": true,
+  "not_extracted_duplicates": [
+    "packaging/linux/flatpak/dev.sentinel.Sentinel.yaml",
+    "packaging/linux/flatpak/org.sentinel.Sentinel.yml",
+    "packaging/linux/fedora-kde/dev.sentinel.Sentinel.metainfo.xml"
+  ]
+}

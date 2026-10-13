@@ -1,0 +1,32 @@
+name: Packaging recipes
+on:
+  push:
+    paths: ['rpm/**', 'flatpak/**', 'snap/**', 'homebrew/**', 'winget/**', 'tools/**', 'tests/**', 'upstream.lock.json', 'requirements-dev.txt', '.github/workflows/packaging.yml']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - run: python3 -m pip install -r requirements-dev.txt
+      - run: python3 tools/packaging.py validate
+      - run: python3 tools/packaging.py fetch-source --out "$RUNNER_TEMP/sentinel-source"
+      - run: python3 -m unittest discover -s tests -v
+      - run: shellcheck tools/*.sh
+  native-rpm:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    container: fedora:44
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - run: dnf -y install rpm-build rpmdevtools cmake-rpm-macros python3-pip git cmake ninja-build gcc-c++ desktop-file-utils libappstream-glib qt6-qtbase-devel qt6-qtbase-sqlite qt6-qtdeclarative-devel qt6-qtmultimedia-devel qt6-qttools-devel
+      - run: python3 -m pip install -r requirements-dev.txt
+      - run: tools/build_srpm.sh "$RUNNER_TEMP/sentinel-srpm"
+      - run: rpmbuild --rebuild --define "_topdir $RUNNER_TEMP/sentinel-srpm" "$RUNNER_TEMP"/sentinel-srpm/SRPMS/*.src.rpm

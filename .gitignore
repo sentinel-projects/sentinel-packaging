@@ -1,0 +1,7 @@
+.work/
+out/
+__pycache__/
+.venv/
+*.rpm
+*.snap
+*.flatpak
